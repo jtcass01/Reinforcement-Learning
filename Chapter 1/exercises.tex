@@ -1,0 +1,45 @@
+\title{Chapter 1: Introduction - Exercises}
+
+
+\author{Jacob Taylor Cassady}
+
+\documentclass{article}
+
+\begin{document}
+
+\maketitle
+
+\section{Self-Play}
+\paragraph{Suppose, instead of playing against a random opponent, the reinforcement learning algorithm described above played against itself, with both sides learning.}
+\subsection{What do you think would happen in this case?}
+It would converge on always drawing.
+\subsection{Would it learn a different policy for selecting moves?}
+The policies for each side would converge on the same policy.
+
+\section{Symmetries}
+\paragraph{Many tic-tac-toe positions appear different but are really the same because of symmetries.}
+\subsection{How might we amend the learning process described above to take advantage of this?}
+Enforce that all matching positions are updated when one is.
+\subsection{In what ways would this change improve the learning process?}
+It would speed up the time of convergence on the optimal policy.
+\subsection{Now think again. Suppose the opponent did not take advantage of symmetries. In that case, should we?}
+Yes! This would give us a faster rate of convergence; thus leading to more early wins. Sucks to suck, opponent!
+\subsection{Is it true, then, that symmetrically equivalent positions should necessarily have the same value?}
+Yes. See my answer two questions ago.
+
+\section{Greedy Play}
+\paragraph{Suppose the reinforcement learning player was greedy, that is, it always played the move that brought it to the position that it rated the best.}
+\subsection{Might it learn to play better, or worse, than a nongreedy player? What problems might occur?}
+It depends on the opponent! If the opponent switched their play style, the greedy player might not have updated the value of those states yet and consequently may perform less optimally.  If the opponent had only one play style, the greedy algorithm would converge faster.
+
+\section{Learning from Exploration}
+\paragraph{Suppose learning updates occurred after all moves, including exploratory moves. If the step-size parameter is appropriately reduced over time (but not the tendency to explore), then the state values would converge to a different set of probabilities.}
+\subsection{What (conceptually) are the two sets of probabilities computed when we do, and when we do not, learn from exploratory moves?}
+\subsection{Assuming that we do continue to make exploratory moves, which set of probabilities might be better to learn?}
+\subsection{Which would result in more wins?}
+
+\section{Other Improvements}
+\subsection{Can you think of other ways to improve the reinforcement learning player?}
+\subsection{Can you think of any better way to solve the tic-tac-toe problem as posed?}
+    
+\end{document}
