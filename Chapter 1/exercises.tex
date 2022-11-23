@@ -35,11 +35,16 @@ It depends on the opponent! If the opponent switched their play style, the greed
 \section{Learning from Exploration}
 \paragraph{Suppose learning updates occurred after all moves, including exploratory moves. If the step-size parameter is appropriately reduced over time (but not the tendency to explore), then the state values would converge to a different set of probabilities.}
 \subsection{What (conceptually) are the two sets of probabilities computed when we do, and when we do not, learn from exploratory moves?}
+The first set of probabilities, when the tendency to explore is reduced over time, the algorithm would not learn less from bad exploratory moves long term.  On the other hand, when the tendency to explore is not reduced over time, the algorithm would learn more from poor exploratory moves.
 \subsection{Assuming that we do continue to make exploratory moves, which set of probabilities might be better to learn?}
+The set of probabilities where the tendency to explore is reduced over time.
 \subsection{Which would result in more wins?}
+The set of probabilities where the tendency to explore is reduced over time. As long as the rate of reduction is sufficiently low to allow for exploration at the beginning.
 
 \section{Other Improvements}
 \subsection{Can you think of other ways to improve the reinforcement learning player?}
+You could assign higher values to certain moves at the point of intializing the table that are more likely to lead to a win such as the center square. You may even base these intial values on the amount of win conditions including that square.
 \subsection{Can you think of any better way to solve the tic-tac-toe problem as posed?}
+Not at the moment.
     
 \end{document}
