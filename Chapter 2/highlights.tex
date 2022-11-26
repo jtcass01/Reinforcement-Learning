@@ -5,6 +5,7 @@
 \documentclass{article}
 \usepackage{textgreek}
 \usepackage{bbold}
+\usepackage{dsfont}
 \usepackage{amsmath, amssymb}
 
 \begin{document}
@@ -24,7 +25,7 @@
     \item This is the original form of the \emph{k-armed bandit problem}, so named by analogy to a slot machine, or “one-armed bandit,” except that it has k levers instead of one.
     \item Through repeated action selections you are to maximize your winnings by concentrating your actions on the best levers.
     \item Today the term “bandit problem” is sometimes used for a generalization of the problem described above, but in this book we use it to refer just to this simple case.
-    \item In our k-armed bandit problem, each of the k actions has an expected or mean reward given that action is selected; let us call this the \emph{value} of that action. We denote the action selected on time step t as $A_t$, and the corresponding reward as $R_t$. The value then of an arbitrary action a, denoted $q_*(a)$, is the expected reward given that \emph{a} is selected: $$ q_*(a) \doteq \mathbb{E}[R_t | A_t = a] $$
+    \item In our k-armed bandit problem, each of the k actions has an expected or mean reward given that action is selected; let us call this the \emph{value} of that action. We denote the action selected on time step t as $A_t$, and the corresponding reward as $R_t$. The value then of an arbitrary action a, denoted $q_*(a)$, is the expected reward given that \emph{a} is selected: $$ q_*(a) \doteq \mathds{E}[R_t | A_t = a] $$
     \item We assume that you do not know the action values with certainty, although you may have estimates. We denote the estimated value of action \emph{a} at time step \emph{t} as $Q_t(a)$. We would like $Q_t(a)$ to be close to $q_*(a)$.
     \item If you maintain estimates of the action values, then at any time step there is at least one action whose estimated value is greatest. We call these the \emph{greedy} actions. When you select one of these actions, we say that you are \emph{exploiting} your current knowledge of the values of the actions. If instead you select one of the nongreedy actions, then we say you are \emph{exploring}, because this enables you to improve your estimate of the nongreedy action's value.
     \item Reward is lower in the short run, during exploration, but higher in the long run because after you have discovered the better actions, you can exploit them many times.
@@ -32,9 +33,10 @@
 
 \section{Action-value Methods}
 \begin{itemize}
-    \item methods for estimating the values of actions and for using the estimates to make action selection decisions, which we collectively call \emph{action-value methods}.
+    \item methods for estimating the values of actions and for using the estimates to make action selection decisions, 
+    which we collectively call \emph{action-value methods}.
     \item $$ Q_t(a) \doteq \frac{\text{sum of rewards when \emph{a} taken prior to \emph{t}}}{\text{number of times \emph{a} taken prior to \emph{t}}} = \frac{\sum_{i=1}^{t-1} R_i \cdotp \mathbb{1}_{A_i=a}}{\sum_{i=1}^{t-1}\mathbb{1}_{A_i=a}} \thickspace \thickspace \thickspace \text{(2.1)} $$
-    where $ \mathbb{1}_{predicate} $ denotes the random variable that is 1 if \emph{predicate is} true and 0 if it is not.
+    where $ \mathbb{1}_{predicate} $ denotes the random variable that is 1 if \emph{predicate} is true and 0 if it is not.
     If the denominator is zero, then we instead define $ Q_t(a) $ as some default value, such as
     0. As the denominator goes to infinity, by the law of large numbers, $ Q_t(a) $ converges to
     $ q_*(a) $. We call this the \emph{sample-average} method for estimating action values because each
@@ -50,12 +52,36 @@
     \item An advantage of these methods is that, in the limit as the number of
     steps increases, every action will be sampled an infinite number of times, thus ensuring
     that all the $ Q_t(a) $ converge to $ q_*(a) $. This of course implies that the probability of selecting
-    the optimal action converges to greater than 1 - $ \epsilon $, that is, to near certainty.
+    the optimal action converges to greater than 1-\textepsilon, that is, to near certainty.
 \end{itemize}
 
 \section{The 10-armed Testbed}
 \begin{itemize}
-    \item .
+    \item a set of 2000 randomly generated k-armed bandit problems with k = 10. For each bandit
+    problem, the action values, $q_*(a)$, a = 1, . . . , 10,
+    were selected according to a normal (Gaussian) distribution with mean 0 and variance 1.
+    Then, when a learning method applied to that problem selected action $A_t$ at time step t,
+    the actual reward, $R_t$, was selected from a normal distribution with mean $q_*(A_t)$ and
+    variance 1. We call this suite of test tasks the \emph{10-armed testbed}.
+    \item The greedy method improved slightly faster than the
+    other methods at the very beginning, but then leveled off at a lower level.
+    \item The greedy method performed significantly worse in the long run because it
+    often got stuck performing suboptimal actions.
+    \item The \textepsilon-greedy methods eventually performed better because they continued
+    to explore and to improve their chances of recognizing the optimal action. The \textepsilon = 0.1
+    method explored more, and usually found the optimal action earlier, but it never selected
+    that action more than 91\% of the time. The \textepsilon = 0.01 method improved more slowly, but
+    eventually would perform better than the \textepsilon = 0.1 method on both performance measures
+    shown in the figure. It is also possible to reduce \textepsilon \thickspace over time to try to get the best of both
+    high and low values.
+    \item suppose the reward variance had been larger, say 10 instead of 1. With noisier rewards
+    it takes more exploration to find the optimal action, and \textepsilon-greedy methods should fare
+    even better relative to the greedy method. On the other hand, if the reward variances
+    were zero, then the greedy method would know the true value of each action after trying
+    it once. In this case the greedy method might actually perform best because it would
+    soon find the optimal action and then never explore.
+    \item Even if the underlying task is stationary and deterministic, the learner [typically] faces a set of banditlike decision 
+    tasks each of which changes over time as learning proceeds and the agent's decision-making policy changes.
 \end{itemize}
 
 \section{Incremental Implementation}
