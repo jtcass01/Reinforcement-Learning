@@ -4,6 +4,7 @@
 
 \documentclass{article}
 \usepackage{textgreek}
+\usepackage{bbold}
 \usepackage{amsmath, amssymb}
 
 \begin{document}
@@ -23,7 +24,7 @@
     \item This is the original form of the \emph{k-armed bandit problem}, so named by analogy to a slot machine, or “one-armed bandit,” except that it has k levers instead of one.
     \item Through repeated action selections you are to maximize your winnings by concentrating your actions on the best levers.
     \item Today the term “bandit problem” is sometimes used for a generalization of the problem described above, but in this book we use it to refer just to this simple case.
-    \item In our k-armed bandit problem, each of the k actions has an expected or mean reward given that action is selected; let us call this the \emph{value} of that action. We denote the action selected on time step t as $A_t$, and the corresponding reward as $R_t$. The value then of an arbitrary action a, denoted $q_*(a)$, is the expected reward given that \emph{a} is selected: $$ q_*(a) = \mathbb{E}[R_t | A_t = a] $$
+    \item In our k-armed bandit problem, each of the k actions has an expected or mean reward given that action is selected; let us call this the \emph{value} of that action. We denote the action selected on time step t as $A_t$, and the corresponding reward as $R_t$. The value then of an arbitrary action a, denoted $q_*(a)$, is the expected reward given that \emph{a} is selected: $$ q_*(a) \doteq \mathbb{E}[R_t | A_t = a] $$
     \item We assume that you do not know the action values with certainty, although you may have estimates. We denote the estimated value of action \emph{a} at time step \emph{t} as $Q_t(a)$. We would like $Q_t(a)$ to be close to $q_*(a)$.
     \item If you maintain estimates of the action values, then at any time step there is at least one action whose estimated value is greatest. We call these the \emph{greedy} actions. When you select one of these actions, we say that you are \emph{exploiting} your current knowledge of the values of the actions. If instead you select one of the nongreedy actions, then we say you are \emph{exploring}, because this enables you to improve your estimate of the nongreedy action's value.
     \item Reward is lower in the short run, during exploration, but higher in the long run because after you have discovered the better actions, you can exploit them many times.
@@ -31,7 +32,25 @@
 
 \section{Action-value Methods}
 \begin{itemize}
-    \item .
+    \item methods for estimating the values of actions and for using the estimates to make action selection decisions, which we collectively call \emph{action-value methods}.
+    \item $$ Q_t(a) \doteq \frac{\text{sum of rewards when \emph{a} taken prior to \emph{t}}}{\text{number of times \emph{a} taken prior to \emph{t}}} = \frac{\sum_{i=1}^{t-1} R_i \cdotp \mathbb{1}_{A_i=a}}{\sum_{i=1}^{t-1}\mathbb{1}_{A_i=a}} \thickspace \thickspace \thickspace \text{(2.1)} $$
+    where $ \mathbb{1}_{predicate} $ denotes the random variable that is 1 if \emph{predicate is} true and 0 if it is not.
+    If the denominator is zero, then we instead define $ Q_t(a) $ as some default value, such as
+    0. As the denominator goes to infinity, by the law of large numbers, $ Q_t(a) $ converges to
+    $ q_*(a) $. We call this the \emph{sample-average} method for estimating action values because each
+    estimate is an average of the sample of relevant rewards.
+    \item The simplest action selection rule is to select one of the actions with the highest
+    estimated value, that is, one of the greedy actions as defined in the previous section.
+    \item We write this greedy action selection method as
+    $$ A_t \doteq \underset{a}{argmax} \thickspace Q_t(a) $$
+    \item A simple alternative is to behave greedily most of the time, but every once in a while, 
+    say with small probability $ \epsilon $, instead select randomly from among all the actions with equal 
+    probability, independently of the action-value estimates. We call methods using this near-greedy action selection rule
+    $ \epsilon $-greedy methods.
+    \item An advantage of these methods is that, in the limit as the number of
+    steps increases, every action will be sampled an infinite number of times, thus ensuring
+    that all the $ Q_t(a) $ converge to $ q_*(a) $. This of course implies that the probability of selecting
+    the optimal action converges to greater than 1 - $ \epsilon $, that is, to near certainty.
 \end{itemize}
 
 \section{The 10-armed Testbed}
