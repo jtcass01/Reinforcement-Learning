@@ -87,7 +87,15 @@
 \section{Incremental Implementation}
 \begin{itemize}
     \item Incremental sample averages estimate 
-    $$ Q_{n+1} = Q_n + \frac{1}{n}[R_n - Q_n] $$
+    $$ Q_{n+1} = Q_n + \frac{1}{n}[R_n - Q_n] \thickspace \thickspace (2.3) $$
+    \item The general form is
+    $$ NewEstimate = OldEstimate + StepSize[Target - OldEstimate] \thickspace \thickspace (2.4) $$
+    The expression $[Target - OldEstimate]$ is an \emph{error} in the estimate. It is reduced by taking
+    a step toward the “Target.” The target is presumed to indicate a desirable direction in
+    which to move, though it may be noisy.
+    \item Note that the step-size parameter (\emph{StepSize}) used in the incremental method (2.3)
+    changes from time step to time step. In this book we denote the step-size parameter
+    by $\alpha$ \thickspace or, more generally, by $\alpha_t(a)$.
 \end{itemize}
 
 \section{Tracking a Nonstationary Problem}
