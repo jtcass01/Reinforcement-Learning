@@ -5,7 +5,7 @@ from numpy import array, where, amax
 from typing import List, Tuple
 
 if __name__ == '__main__':
-    k: int = 4
+    k: int = 4                                                              # Size of action space
     initial_estimate: float = 0.
     action_value_estimates: array = array([initial_estimate]*k, dtype=float)
     action_counts: array = array([0]*k, dtype=float)
