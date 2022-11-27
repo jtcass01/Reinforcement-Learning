@@ -1,3 +1,6 @@
+__author__ = 'Jacob Taylor Cassady'
+__email__ = 'jacobtaylorcassady@outlook.com'
+
 from numpy import array, where, amax
 from typing import List, Tuple
 
