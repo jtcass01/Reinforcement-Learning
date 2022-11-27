@@ -1,10 +1,10 @@
-from numpy import array, where, amax, nan_to_num
+from numpy import array, where, amax
 from typing import List, Tuple
 
 if __name__ == '__main__':
     k: int = 4
     initial_estimate: float = 0.
-    action_value_estimates: array = nan_to_num(array([initial_estimate]*k, dtype=float))
+    action_value_estimates: array = array([initial_estimate]*k, dtype=float)
     action_counts: array = array([0]*k, dtype=float)
     action_reward_sequence: List[Tuple[int, int]] = \
         [(1, -1), (2, 1), (2, -2), (2, 2), (3, 0)]
