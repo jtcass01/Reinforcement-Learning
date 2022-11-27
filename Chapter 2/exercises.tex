@@ -7,6 +7,8 @@
 \usepackage{textcomp}
 \usepackage{textgreek}
 \usepackage{bbding, pifont}
+\usepackage{graphicx}
+\graphicspath{ {.} }
 
 \begin{document}
 
@@ -16,18 +18,36 @@
 50 percent.
 
 \section{Bandit example}
-\paragraph{Consider a k-armed bandit problem with k = 4 actions, denoted 1, 2, 3, and 4. 
-           Consider applying to this problem a bandit algorithm using \textepsilon-greedy action selection, 
-           sample-average action-value estimates, and initial estimates of $ Q_1(a) $ = 0, for all \emph{a}. Suppose the initial sequence of actions and rewards is $A_1$ = 1, $R_1$ = \textminus 1, $A_2$ = 2, $R_2$ = 1, $A_3$ = 2, $R_3$ = \textminus 2, $A_4$ = 2, $R_4$ = 2, $A_5$ = 3, $R_5$ = 0. On some of these time steps the \textepsilon \thickspace case may have occurred, causing an action to be selected at random.}
+Consider a k-armed bandit problem with k = 4 actions, denoted 1, 2, 3, and 4. 
+Consider applying to this problem a bandit algorithm using \textepsilon-greedy action selection, 
+sample-average action-value estimates, and initial estimates of $ Q_1(a) $ = 0, for all \emph{a}. 
+Suppose the initial sequence of actions and rewards is $A_1$ = 1, $R_1$ = \textminus 1, $A_2$ = 2, 
+$R_2$ = 1, $A_3$ = 2, $R_3$ = \textminus 2, $A_4$ = 2, $R_4$ = 2, $A_5$ = 3, $R_5$ = 0. 
+On some of these time steps the \textepsilon \thickspace case may have occurred, causing an action 
+to be selected at random.
+
+\paragraph{See Figure 1 at the end of the document for the output of the code I wrote for this.}
+
+\begin{figure}[b]
+    \centering
+    \includegraphics{bandit_example_output.png}    
+    \caption{Output of bandit\_example.py}
+\end{figure}
+
 \subsection{On which time steps did this definitely occur?}
+Note. I am indexing the time steps by 0. Answer: [3, 4]
 \subsection{On which time steps could this possibly have occurred?}
+Note. I am indexing the time steps by 0. Answer: [0, 1, 2]
 
 \section{In the comparison shown in Figure 2.2, }
 Express your answer quantitatively.
-\subsection{which method will perform best in the long run in terms of cumulative reward and probability of selecting the best action?}
+\subsection{which method will perform best in the long run in terms of cumulative reward and probability
+            of selecting the best action?}
+\textepsilon=0.01
 \subsection{How much better will it be?}
+\textepsilon=0.1 would perform at best 91\% optimal. \textepsilon=0.01 would perform at best 99.1\% optimal. After convergence, \textepsilon=0.01 would perform 8.1\% better.
 
-\section{If the step-size parameters, \textalpha n, are not constant, then the estimate Qn is a weighted average of previously received rewards with a weighting different from that given by (2.6).}
+\section{If the step-size parameters, $\alpha_n$, are not constant, then the estimate $Q_n$ is a weighted average of previously received rewards with a weighting different from that given by (2.6).}
 \subsection{What is the weighting on each prior reward for the general case, analogous to (2.6), in terms of the sequence of step-size parameters?}
 
 \section{programming}
