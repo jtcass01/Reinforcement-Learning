@@ -133,3 +133,6 @@ dmypy.json
 *.fls
 *.fdb_latexmk
 *.aux
+
+# Cpp
+*.o
